@@ -19,8 +19,8 @@ mysqlConnection1.connect(function (err){
 const mysqlConnection2=mysql.createConnection({
     host:'sql3.freemysqlhosting.net',//aquí debería ir el dato proporcionado conocido como "server"
     user:'sql3401760',//nombre de la bd generada
-    password:'sql3401760',//proporcionada por el hosting service
-    database: 'bWCy8dpURg'//proporcionada por el hosting service
+    password:'bWCy8dpURg',//proporcionada por el hosting service
+    database: 'sql3401760'//proporcionada por el hosting service
 });
 mysqlConnection2.connect(function (err){
     if(err){

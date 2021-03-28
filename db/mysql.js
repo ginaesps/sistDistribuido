@@ -21,6 +21,7 @@ const mysqlConnection2=mysql.createConnection({
     user:'ujroqn5kvvyvvsql',
     password:'GxvLzLo1z99T0Xl5z64y',
     database: 'bejjy7ikl7u1hdtyqgxj'
+
 });
 mysqlConnection2.connect(function (err){
     if(err){

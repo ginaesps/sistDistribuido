@@ -15,12 +15,12 @@ mysqlConnection1.connect(function (err){
         console.log('DB1 is connected');
     }
 });
-/////CONEXIÓN A BD2
+/////CONEXIÓN A BD2 (Ale)
 const mysqlConnection2=mysql.createConnection({
-    host:' ',//aquí debería ir el dato proporcionado conocido como "server"
-    user:' ',//nombre de la bd generada
-    password:' ',//proporcionada por el hosting service
-    database: ' '//proporcionada por el hosting service
+    host:'bejjy7ikl7u1hdtyqgxj-mysql.services.clever-cloud.com',
+    user:'ujroqn5kvvyvvsql',
+    password:'GxvLzLo1z99T0Xl5z64y',
+    database: 'bejjy7ikl7u1hdtyqgxj'
 });
 mysqlConnection2.connect(function (err){
     if(err){
@@ -30,12 +30,12 @@ mysqlConnection2.connect(function (err){
         console.log('DB2 is connected');
     }
 });
-/////CONEXIÓN A BD3
+/////CONEXIÓN A BD3 (Joshua)
 const mysqlConnection3=mysql.createConnection({
-    host:' ',//aquí debería ir el dato proporcionado conocido como "server"
-    user:' ',//nombre de la bd generada
-    password:' ',//proporcionada por el hosting service
-    database: ' '//proporcionada por el hosting service
+    host:'mysql-tareaschidas.alwaysdata.net',
+    user:'230692_joshua',
+    password:'Animales1',
+    database: 'tareaschidas_prueba'
 });
 mysqlConnection3.connect(function (err){
     if(err){

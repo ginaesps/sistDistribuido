@@ -1,45 +1,224 @@
+const { json } = require('body-parser');
 let mysql=require('../../db/mysql');
 let invoice_details=require('../models/invoice_details');
+let vector = []; 
 module.exports = {
-   create:(req,res)=>{
-      console.log(req.body);
-      mysql.query('insert into invoice_details SET ?',req.body,(err,rows,fields)=>{
+   create:(req,res)=>{ ///ventas/total/sucursales/:idSucursal/facturas/:idFactura
+      let idSucursal = req.params.idSucursal;
+      let idFactura = req.params.idFactura;
+      switch(idSucursal){
+         case(1):
+            mysql.mysqlConnection1.query(`insert into invoice_details SET where id = ${idFactura}`, (err,rows,fields)=>{
+               if(!err){
+                  res.status(200).json(rows);
+               }
+               else{
+                  res.status(404).json(err); // REVISAR VALIDACIÓN
+               }
+            });
+            break;
+         case(2):
+            mysql.mysqlConnection2.query(`insert into invoice_details SET where id = ${idFactura}`, (err,rows,fields)=>{
+               if(!err){
+                  res.status(200).json(rows);
+               }
+               else{
+                  res.status(404).json(err); // REVISAR VALIDACIÓN
+               }
+            });
+            break;
+         case(3):
+            mysql.mysqlConnection3.query(`insert into invoice_details SET where id = ${idFactura}`, (err,rows,fields)=>{
+               if(!err){
+                  res.status(200).json(rows);
+               }
+               else{
+                  res.status(404).json(err); // REVISAR VALIDACIÓN
+               }
+            });
+            break;
+      }
+   },
+   edit:(req,res)=>{ ///ventas/total/sucursales/:idSucursal/facturas/:idFactura
+      let idSucursal = req.params.idSucursal;
+      let idFactura = req.params.idFactura;
+      switch(idSucursal){
+         case(1):
+            mysql.mysqlConnection1.query(`update invoice_details SET where id = ${idFactura}`, (err,rows,fields)=>{
+               if(!err){
+                  res.status(200).json(rows);
+               }
+               else{
+                  res.status(404).json(err); // REVISAR VALIDACIÓN
+               }
+            });
+            break;
+         case(2):
+            mysql.mysqlConnection2.query(`insert into invoice_details SET where id = ${idFactura}`, (err,rows,fields)=>{
+               if(!err){
+                  res.status(200).json(rows);
+               }
+               else{
+                  res.status(404).json(err); // REVISAR VALIDACIÓN
+               }
+            });
+            break;
+         case(3):
+            mysql.mysqlConnection3.query(`insert into invoice_details SET where id = ${idFactura}`, (err,rows,fields)=>{
+               if(!err){
+                  res.status(200).json(rows);
+               }
+               else{
+                  res.status(404).json(err); // REVISAR VALIDACIÓN
+               }
+            });
+            break;
+      }
+   },
+   listAll:(req,res)=>{ //ventas/total/facturas
+      mysql.mysqlConnection1.query('SELECT * FROM invoice_details',(err,rows,fields)=>{
          if(!err)
-            res.json(rows);
+         {
+             invoiceRecords(rows)
+            res.json(vector) //BORRAR DESPUES
+         }
          else
-            res.json(err);
-      })
+         {
+             res.json(err);
+         }
+     }),
+     mysql.mysqlConnection2.query('SELECT * FROM invoice_details',(err,rows,fields)=>{
+         if(!err)
+         {
+             invoiceRecords(rows)
+         }
+         else
+         {
+             res.json(err);
+         }
+     }),
+     mysql.mysqlConnection3.query('SELECT * FROM invoice_details',(err,rows,fields)=>{
+         if(!err)
+         {
+             invoiceRecords(rows)
+             res.json(vector)
+         }
+         else
+         {
+             res.json(err);
+         }
+     })
+     vector = []
+
+function invoiceRecords(x){
+   let i = vector.length
+   vector[i] = x;
+}},
+   listInvoiceOneBranch:(req,res)=>{  //ventas/total/sucursales/:idSucursal/facturas/:idFactura 
+      let idSucursal = req.params.idSucursal;
+      let idFactura = req.params.idFactura;
+      switch(idSucursal){
+         case(1):
+            mysql.mysqlConnection1.query(`select from invoice_details where id = ${idFactura}`, (err,rows,fields)=>{
+               if(!err){
+                  res.status(200).json(rows);
+               }
+               else{
+                  res.status(404).json(err); // REVISAR VALIDACIÓN
+               }
+            });
+            break;
+            case(2):
+            mysql.mysqlConnection2.query(`select from invoice_details where id = ${idFactura}`, (err,rows,fields)=>{
+               if(!err){
+                  res.status(200).json(rows);
+               }
+               else{
+                  res.status(404).json(err); // REVISAR VALIDACIÓN
+               }
+            });
+            break;
+            case(3):
+            mysql.mysqlConnection3.query(`select from invoice_details where id = ${idFactura}`, (err,rows,fields)=>{
+               if(!err){
+                  res.status(200).json(rows);
+               }
+               else{
+                  res.status(404).json(err); // REVISAR VALIDACIÓN
+               }
+            });
+            break;
+      }
    },
-   list:(req,res)=>{
-      mysql.query('select * from invoice_details',(err,rows,fields)=>{
-         if (!err)
-            res.json(rows);
-         else
-            res.json(err);
-      })
-   },
-   find:(req,res)=>{
-      mysql.query('select * from invoice_details where order_id=?',req.params.id,(err,rows,fields)=>{
-         if (!err)
-            res.json(rows);
-         else
-            res.json(err);
-      })
-   },
-   edit:(req,res)=>{
-      mysql.query('update invoice SET ? where id=?',[req.body, req.params.id],(err,rows,fields)=>{
-         if (!err)
-            res.json(rows);
-         else
-            res.json(err);
-      })
-   },
-   search:(req,res)=>{ //para saber en que ventas se ha vendido el producto
-      mysql.query('Select * from order v inner join order_detail d on v.id=d.id_venta inner join product p on p.id=d.id_product and d.id_product=?',req.params.id,(err,rows,fields)=>{
-         if (!err)
-            res.json(rows);
-         else
-            res.json(err);
-      })
+   listAllOneBranch:(req,res)=>{ //ventas/total/facturas/sucursales/:idSucursal 
+      let idSucursal = req.params.idSucursal;
+      switch(idSucursal){
+         case(1):
+      mysql.mysqlConnection1.query(`select * from invoice_details`, (err,rows,fields)=>{
+         if(!err){
+            res.status(200).json(rows);
+         }
+         else{
+            res.status(404).json(err); // REVISAR VALIDACIÓN
+         }
+      });
+      break;
+      case(2):
+      mysql.mysqlConnection2.query(`select * from invoice_details`, (err,rows,fields)=>{
+         if(!err){
+            res.status(200).json(rows);
+         }
+         else{
+            res.status(404).json(err); // REVISAR VALIDACIÓN
+         }
+      });
+      break;
+      case(3):
+      mysql.mysqlConnection3.query(`select * from invoice_details`, (err,rows,fields)=>{
+         if(!err){
+            res.status(200).json(rows);
+         }
+         else{
+            res.status(404).json(err); // REVISAR VALIDACIÓN
+         }
+      });
+      break;
+      }
+   }, 
+   delete:(req,res)=>{ ///ventas/total/sucursales/:idSucursal/facturas/:idFactura
+      let idSucursal = req.params.idSucursal;
+      let idFactura = req.params.idFactura;
+      switch(idSucursal){
+            case(1):
+               mysql.mysqlConnection1.query(`delete from invoice_details where id = ${idFactura}`, (err,rows,fields)=>{
+               if(!err){
+                  res.status(200).json(rows);
+               }
+               else{
+                  res.status(404).json(err); // REVISAR VALIDACIÓN
+               }
+            });
+         break;
+            case(2):
+            mysql.mysqlConnection2.query(`delete from invoice_details where id = ${idFactura}`, (err,rows,fields)=>{
+               if(!err){
+                  res.status(200).json(rows);
+               }
+               else{
+                  res.status(404).json(err); // REVISAR VALIDACIÓN
+               }
+            });
+         break;
+            case(3):
+            mysql.mysqlConnection3.query(`delete from invoice_details where id = ${idFactura}`, (err,rows,fields)=>{
+               if(!err){
+                  res.status(200).json(rows);
+               }
+               else{
+                  res.status(404).json(err); // REVISAR VALIDACIÓN
+               }
+            });
+         break;
+      }
    }
-}
+} 

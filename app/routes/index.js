@@ -10,8 +10,8 @@ router.use('/invoice', invoice)
 // var product = require('./product')
 // router.use('/product', product)
 
-// var invoice = require('./invoice_details')
-// router.use('/invoice_details', invoice_details)
+var invoice = require('./invoice_details')
+router.use('/invoice_details', invoice_details)
 
 // var product = require('./branch')
 // router.use('/branch', branch)

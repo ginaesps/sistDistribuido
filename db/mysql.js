@@ -17,10 +17,10 @@ mysqlConnection1.connect(function (err){
 });
 /////CONEXIÓN A BD2
 const mysqlConnection2=mysql.createConnection({
-    host:' ',//aquí debería ir el dato proporcionado conocido como "server"
-    user:' ',//nombre de la bd generada
-    password:' ',//proporcionada por el hosting service
-    database: ' '//proporcionada por el hosting service
+    host:'sql3.freemysqlhosting.net',//aquí debería ir el dato proporcionado conocido como "server"
+    user:'sql3401760',//nombre de la bd generada
+    password:'sql3401760',//proporcionada por el hosting service
+    database: 'bWCy8dpURg'//proporcionada por el hosting service
 });
 mysqlConnection2.connect(function (err){
     if(err){
@@ -32,10 +32,10 @@ mysqlConnection2.connect(function (err){
 });
 /////CONEXIÓN A BD3
 const mysqlConnection3=mysql.createConnection({
-    host:' ',//aquí debería ir el dato proporcionado conocido como "server"
-    user:' ',//nombre de la bd generada
-    password:' ',//proporcionada por el hosting service
-    database: ' '//proporcionada por el hosting service
+    host:'mysql-tareaschidas.alwaysdata.net',//aquí debería ir el dato proporcionado conocido como "server"
+    user:'230692_joshua',//nombre de la bd generada
+    password:'Animales1',//proporcionada por el hosting service
+    database: 'tareaschidas_prueba'//proporcionada por el hosting service
 });
 mysqlConnection3.connect(function (err){
     if(err){

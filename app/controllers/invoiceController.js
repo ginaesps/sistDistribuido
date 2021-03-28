@@ -36,8 +36,8 @@ module.exports = {
       let idSucursal = req.params.idSucursal;
       let idFactura = req.params.idFactura;
       switch(idSucursal){
-         case(1):
-            mysql.mysqlConnection1.query(`delete from invoice where id = ${idFactura}`, (err,rows,fields)=>{
+            case(1):
+               mysql.mysqlConnection1.query(`delete from invoice where id = ${idFactura}`, (err,rows,fields)=>{
                if(!err){
                   res.status(200).json(rows);
                }
@@ -46,7 +46,26 @@ module.exports = {
                }
             });
          break;
-         //repetir para caso 2 y 3
+            case(2):
+            mysql.mysqlConnection2.query(`delete from invoice where id = ${idFactura}`, (err,rows,fields)=>{
+               if(!err){
+                  res.status(200).json(rows);
+               }
+               else{
+                  res.status(404).json(err); // REVISAR VALIDACIÓN
+               }
+            });
+         break;
+            case(3):
+            mysql.mysqlConnection3.query(`delete from invoice where id = ${idFactura}`, (err,rows,fields)=>{
+               if(!err){
+                  res.status(200).json(rows);
+               }
+               else{
+                  res.status(404).json(err); // REVISAR VALIDACIÓN
+               }
+            });
+         break;
       }
    }
 }

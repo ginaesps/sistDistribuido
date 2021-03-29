@@ -6,27 +6,29 @@ module.exports = {
     modify:(req,res)=>{ //sucursales/:idSucursal : modificar información de la sucursal indicada.
         let id = req.params.id;
         mysql.mysqlConnection1.query('update branch set ? where id=?', [req.body,id], (err,rows,fields)=>{
-           if(!err){
-              res.json(vector) //BORRAR DESPUES
-           }
+            if(!err){
+                branchRecords(rows);
+            }
            else {
                res.json(err);
            }
         })
         mysql.mysqlConnection2.query('update branch set ? where id=?', [req.body,id], (err,rows,fields)=>{
-           if(!err){
-           }
-           else{
+            if(!err){
+                branchRecords(rows);
+            }
+            else{
                res.json(err);
-           }
+            }
         }),
         mysql.mysqlConnection3.query('update branch set ? where id=?', [req.body,id], (err,rows,fields)=>{
-           if(!err){
-               res.json(vector);
-           }
-           else{
+            if(!err){
+                branchRecords(rows);
+                res.json(vector);
+            }
+            else{
                res.json(err);
-           }
+            }
         })
         },
     listAll:(req,res)=>{ //sucursales/:idSucursal : obtener información de alguna sucursal en específico.

@@ -8,48 +8,63 @@ module.exports = {
    let idProducto = req.params.idProducto;
    let idSucursal = req.params.idSucursal;
    switch(idSucursal){
-      case(1):
-         mysql.mysqlConnection1.query(`delete from Product where id = ${idProducto}`, (err,rows,fields)=>{
-            if(!err){
-               res.status(200).json(rows);
+      case '1':
+         mysql.mysqlConnection1.query(`select name from producto where id = ${idProducto}`,(err,rows,fields) => {
+            if(rows[0]!=null){
+               mysql.mysqlConnection1.query(`delete from Product where id = ${idProducto}`, (errDelete,rowsDelete,fieldsDelete)=>{
+                  if(rowsDelete[0]!=null){
+                     res.status(200).json(rowsDelete);
+                  }
+                  else{
+                     res.status(404).json({Mensaje: `No se encontró un producto con el ID ${idProducto}`, Error: `${errDelete}`}); 
+                  }
+               });
             }
-            else{
-               res.status(404).json(err); // REVISAR VALIDACIÓN
-            }
-         });
+         })
       break;
-      case(2):
-         mysql.mysqlConnection2.query(`delete from Product where id = ${idProducto}`, (err,rows,fields)=>{
-            if(!err){
-               res.status(200).json(rows);
+      case '2':
+         mysql.mysqlConnection2.query(`select name from producto where id = ${idProducto}`,(err,rows,fields) => {
+            if(rows[0]!=null){
+               mysql.mysqlConnection1.query(`delete from Product where id = ${idProducto}`, (errDelete,rowsDelete,fieldsDelete)=>{
+                  if(rowsDelete[0]!=null){
+                     res.status(200).json(rowsDelete);
+                  }
+                  else{
+                     res.status(404).json({Mensaje: `No se encontró un producto con el ID ${idProducto}`, Error: `${errDelete}`}); 
+                  }
+               });
             }
-            else{
-               res.status(404).json(err); // REVISAR VALIDACIÓN
+         })
+      break;      
+      case '3':
+         mysql.mysqlConnection3.query(`select name from producto where id = ${idProducto}`,(err,rows,fields) => {
+            if(rows[0]!=null){
+               mysql.mysqlConnection1.query(`delete from Product where id = ${idProducto}`, (errDelete,rowsDelete,fieldsDelete)=>{
+                  if(rowsDelete[0]!=null){
+                     res.status(200).json(rowsDelete);
+                  }
+                  else{
+                     res.status(404).json({Mensaje: `No se encontró un producto con el ID ${idProducto}`, Error: `${errDelete}`}); 
+                  }
+               });
             }
-         });
+         })
       break;
-      case(3):
-         mysql.mysqlConnection3.query(`delete from Product where id = ${idProducto}`, (err,rows,fields)=>{
-            if(!err){
-               res.status(200).json(rows);
-            }
-            else{
-               res.status(404).json(err); // REVISAR VALIDACIÓN
-            }
-         });
-      break;
-      }
+      default: 
+         res.status(404).json({Mensaje: `No se encontró un producto con el ID ${idProducto}`}); 
+   }
    },
-   deleteGlobal: (req,res)=>{///productos/:idProducto: eliminar producto existente.
-      mysql.mysqlConnection1.query(`delete from product where id = ${idProducto}`,(err,rows,fields)=>{
-         if(!err){
-            productRecords(rows)//REVISAR SI ES NECESARIO GUARDARLO EN VECTOR
+   deleteGlobal: (req,res)=>{
+      let id = req.params.id;
+      mysql.mysqlConnection1.query(`delete from product where id = ${id}`,(err,rows,fields)=>{
+         if(rows[0]!=null){
+            productRecords(rows)
          }
          else {
             res.json(err);
          }
    })
-   mysql.mysqlConnection2.query(`delete from product where id = ${idProducto}`,(err,rows,fields)=>{
+   mysql.mysqlConnection2.query(`delete from product where id = ${id}`,(err,rows,fields)=>{
          if(!err){
             productRecords(rows)
          }
@@ -57,7 +72,7 @@ module.exports = {
             res.json(err);
          }
    }),
-   mysql.mysqlConnection3.query(`delete from product where id = ${idProducto}`,(err,rows,fields)=>{
+   mysql.mysqlConnection3.query(`delete from product where id = ${id}`,(err,rows,fields)=>{
          if(!err){
             productRecords(rows)
             res.json(vector)

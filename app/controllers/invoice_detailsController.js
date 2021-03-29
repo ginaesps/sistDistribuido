@@ -8,7 +8,7 @@ module.exports = {
       let idFactura = req.params.idFactura;
       switch(idSucursal){
          case(1):
-            mysql.mysqlConnection1.query(`insert into invoice_details SET where id = ${idFactura}`, (err,rows,fields)=>{
+            mysql.mysqlConnection1.query(`insert into invoice_details SET ? where id = ${idFactura}`,[req.body,id], (err,rows,fields)=>{
                if(!err){
                   res.status(200).json(rows);
                }
@@ -18,7 +18,7 @@ module.exports = {
             });
             break;
          case(2):
-            mysql.mysqlConnection2.query(`insert into invoice_details SET where id = ${idFactura}`, (err,rows,fields)=>{
+            mysql.mysqlConnection2.query(`insert into invoice_details SET ? where id = ${idFactura}`,[req.body,id], (err,rows,fields)=>{
                if(!err){
                   res.status(200).json(rows);
                }
@@ -28,7 +28,7 @@ module.exports = {
             });
             break;
          case(3):
-            mysql.mysqlConnection3.query(`insert into invoice_details SET where id = ${idFactura}`, (err,rows,fields)=>{
+            mysql.mysqlConnection3.query(`insert into invoice_details SET ? where id = ${idFactura}`,[req.body,id], (err,rows,fields)=>{
                if(!err){
                   res.status(200).json(rows);
                }
@@ -44,7 +44,7 @@ module.exports = {
       let idFactura = req.params.idFactura;
       switch(idSucursal){
          case(1):
-            mysql.mysqlConnection1.query(`update invoice_details SET where id = ${idFactura}`, (err,rows,fields)=>{
+            mysql.mysqlConnection1.query(`update invoice_details SET ? where id = ${idFactura}`,[req.body,id], (err,rows,fields)=>{
                if(!err){
                   res.status(200).json(rows);
                }
@@ -54,7 +54,7 @@ module.exports = {
             });
             break;
          case(2):
-            mysql.mysqlConnection2.query(`insert into invoice_details SET where id = ${idFactura}`, (err,rows,fields)=>{
+            mysql.mysqlConnection2.query(`update invoice_details SET ? where id = ${idFactura}`,[req.body,id], (err,rows,fields)=>{
                if(!err){
                   res.status(200).json(rows);
                }
@@ -64,7 +64,7 @@ module.exports = {
             });
             break;
          case(3):
-            mysql.mysqlConnection3.query(`insert into invoice_details SET where id = ${idFactura}`, (err,rows,fields)=>{
+            mysql.mysqlConnection3.query(`update invoice_details SET ? where id = ${idFactura}`,[req.body,id], (err,rows,fields)=>{
                if(!err){
                   res.status(200).json(rows);
                }
@@ -76,40 +76,48 @@ module.exports = {
       }
    },
    listAll:(req,res)=>{ //ventas/total/facturas
-      mysql.mysqlConnection1.query('SELECT * FROM invoice_details',(err,rows,fields)=>{
-         if(!err)
-         {
-             invoiceRecords(rows)
-            res.json(vector) //BORRAR DESPUES
-         }
-         else
-         {
-             res.json(err);
-         }
-     }),
-     mysql.mysqlConnection2.query('SELECT * FROM invoice_details',(err,rows,fields)=>{
-         if(!err)
-         {
-             invoiceRecords(rows)
-         }
-         else
-         {
-             res.json(err);
-         }
-     }),
-     mysql.mysqlConnection3.query('SELECT * FROM invoice_details',(err,rows,fields)=>{
-         if(!err)
-         {
-             invoiceRecords(rows)
-             res.json(vector)
-         }
-         else
-         {
-             res.json(err);
-         }
-     })
+      let idSucursal = req.params.idSucursal;
+      switch(idSucursal){
+         case(1):
+         mysql.mysqlConnection1.query('SELECT * FROM invoice_details',(err,rows,fields)=>{
+            if(!err)
+            {
+                invoiceRecords(rows)
+               res.json(vector) //BORRAR DESPUES
+            }
+            else
+            {
+                res.json(err);
+            }
+        });
+        break;
+        case(2):
+        mysql.mysqlConnection2.query('SELECT * FROM invoice_details',(err,rows,fields)=>{
+            if(!err)
+            {
+                invoiceRecords(rows)
+            }
+            else
+            {
+                res.json(err);
+            }
+        });
+        break;
+        case(3):
+        mysql.mysqlConnection3.query('SELECT * FROM invoice_details',(err,rows,fields)=>{
+            if(!err)
+            {
+                invoiceRecords(rows)
+                res.json(vector)
+            }
+            else
+            {
+                res.json(err);
+            }
+        });
+        break;
+      }
      vector = []
-
 function invoiceRecords(x){
    let i = vector.length
    vector[i] = x;
@@ -150,7 +158,7 @@ function invoiceRecords(x){
             break;
       }
    },
-   listAllOneBranch:(req,res)=>{ //ventas/total/facturas/sucursales/:idSucursal 
+   listAllOneBranch:(req,res)=>{ //ventas/total/factgit adduras/sucursales/:idSucursal 
       let idSucursal = req.params.idSucursal;
       switch(idSucursal){
          case(1):

@@ -77,7 +77,7 @@ module.exports = {
                      else{
                         res.status(404).json(errUpdate); // REVISAR VALIDACIÓN
                      }
-                  });
+                  });  
                }
                else{
                   res.status(404).json({Mensaje: `No se encontró una factura con el ID ${idFactura} `, Error: `${err}`});
@@ -147,6 +147,7 @@ module.exports = {
             res.json(err);
          }
      })
+     vectror = [];
    },
    listOneOfSpecificBranch:(req,res)=>{  //ventas/total/sucursales/:idSucursal/facturas/:idFactura 
       let idSucursal = req.params.idSucursal;
@@ -162,7 +163,7 @@ module.exports = {
                      }
                   });
          break;
-         case(2):
+         case '2':
             mysql.mysqlConnection2.query(`select invoice_id, product_id, quantity, cost from invoice_details where id = ${idFactura}`, (err,rows,fields)=>{
                      if(rows[0]!=null){
                         res.status(200).json(rows);
@@ -172,7 +173,7 @@ module.exports = {
                      }
                   });
          break;
-         case(3):
+         case '3':
             mysql.mysqlConnection3.query(`select invoice_id, product_id, quantity, cost from invoice_details where id = ${idFactura}`, (err,rows,fields)=>{
                      if(rows[0]!=null){
                         res.status(200).json(rows);

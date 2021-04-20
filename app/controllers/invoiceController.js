@@ -1,6 +1,6 @@
 const mysql=require('../../db/mysql');
 const invoice=require('../models/invoice');
-const { json } = require('body-parser'); //NO ENTIENDO POR QUÉ LA DECLARA ASÍ
+const { json } = require('body-parser'); 
 let vector = [];
 
 module.exports = {
@@ -169,103 +169,103 @@ module.exports = {
          break;
       }
    },
-   modify:(req,res)=>{
-      let idSucursal = req.params.idSucursal;
-      let idFactura = req.params.idFactura;
-      switch(idSucursal){
-         case(1):
-            mysql.mysqlConnection1.query('update invoice set ? where id=?', [req.body,id], (err,rows,fields)=>{
-               if(rows[0]!=null){
-                  res.status(200).json(rows);
-               }
-               else{
-                  res.status(404).json(err); 
-               }
-            });
-         break;
-         case(2):
-            mysql.mysqlConnection2.query('update invoice set ? where id=?', [req.body,id], (err,rows,fields)=>{
-               if(rows[0]!=null){
-                  res.status(200).json(rows);
-               }
-               else{
-                  res.status(404).json(err); 
-               }
-            });
-         break;
-      case(3):
-         mysql.mysqlConnection3.query('update invoice set ? where id=?', [req.body,id], (err,rows,fields)=>{
-            if(rows[0]!=null){
-               res.status(200).json(rows);
-            }
-            else{
-               res.status(404).json(err); 
-            }
-         });
-      break;
-      default: 
-            res.status(404).json({Mensaje: `No se encontró una sucursal con el ID ${idSucursal}`})
-      }
-   },
-   delete:(req,res)=>{
-      let idSucursal = req.params.idSucursal;
-      let idFactura = req.params.idFactura;
-      switch(idSucursal){
-         case '1':
-            mysql.mysqlConnection1.query(`select * from invoice where id = ${idFactura}`, (err,rows,fields) =>{
-               if(rows[0]!=null){
-                  mysql.mysqlConnection1.query(`delete from invoice where id = ${idFactura}`, (errDelete,rowsDelete,fieldsDelete)=>{
-                     if(!err){
-                        res.status(200).json(rowsDelete);
-                     }
-                     else{
-                        res.status(404).json(errDelete); // REVISAR VALIDACIÓN
-                     }
-                  });
-               }
-               else{
-                  res.status(404).json({Mensaje: `No se encontraron detalles de factura con el ID ${idFactura} `, Error: `${err}`});
-               }
-            })
-         break;
-         case '2':
-            mysql.mysqlConnection2.query(`select * from invoice where id = ${idFactura}`, (err,rows,fields) =>{
-               if(rows[0]!=null){
-                  mysql.mysqlConnection1.query(`delete from invoice where id = ${idFactura}`, (errDelete,rowsDelete,fieldsDelete)=>{
-                     if(!err){
-                        res.status(200).json(rowsDelete);
-                     }
-                     else{
-                        res.status(404).json(errDelete); // REVISAR VALIDACIÓN
-                     }
-                  });
-               }
-               else{
-                  res.status(404).json({Mensaje: `No se encontraron detalles de factura con el ID ${idFactura} `, Error: `${err}`});
-               }
-            })
-         break;         
-         case '3':
-            mysql.mysqlConnection3.query(`select * from invoice where id = ${idFactura}`, (err,rows,fields) =>{
-               if(rows[0]!=null){
-                  mysql.mysqlConnection1.query(`delete from invoice where id = ${idFactura}`, (errDelete,rowsDelete,fieldsDelete)=>{
-                     if(!err){
-                        res.status(200).json(rowsDelete);
-                     }
-                     else{
-                        res.status(404).json(errDelete); // REVISAR VALIDACIÓN
-                     }
-                  });
-               }
-               else{
-                  res.status(404).json({Mensaje: `No se encontraron detalles de factura con el ID ${idFactura} `, Error: `${err}`});
-               }
-            })
-         break;
-         default:
-            res.status(404).json({Mensaje: `No se encontró una sucursal con el ID ${idSucursal} `});
-      }
-   }
+   // modify:(req,res)=>{
+   //    let idSucursal = req.params.idSucursal;
+   //    let idFactura = req.params.idFactura;
+   //    switch(idSucursal){
+   //       case '1':
+   //          mysql.mysqlConnection1.query('update invoice set ? where id=?', [req.body,id], (err,rows,fields)=>{
+   //             if(rows[0]!=null){
+   //                res.status(200).json(rows);
+   //             }
+   //             else{
+   //                res.status(404).json(err); 
+   //             }
+   //          });
+   //       break;
+   //       case '2':
+   //          mysql.mysqlConnection2.query('update invoice set ? where id=?', [req.body,id], (err,rows,fields)=>{
+   //             if(rows[0]!=null){
+   //                res.status(200).json(rows);
+   //             }
+   //             else{
+   //                res.status(404).json(err); 
+   //             }
+   //          });
+   //       break;
+   //    case '3':
+   //       mysql.mysqlConnection3.query('update invoice set ? where id=?', [req.body,id], (err,rows,fields)=>{
+   //          if(rows[0]!=null){
+   //             res.status(200).json(rows);
+   //          }
+   //          else{
+   //             res.status(404).json(err); 
+   //          }
+   //       });
+   //    break;
+   //    default: 
+   //          res.status(404).json({Mensaje: `No se encontró una sucursal con el ID ${idSucursal}`})
+   //    }
+   // },
+   // delete:(req,res)=>{
+   //    let idSucursal = req.params.idSucursal;
+   //    let idFactura = req.params.idFactura;
+   //    switch(idSucursal){
+   //       case '1':
+   //          mysql.mysqlConnection1.query(`select * from invoice where id = ${idFactura}`, (err,rows,fields) =>{
+   //             if(rows[0]!=null){
+   //                mysql.mysqlConnection1.query(`delete from invoice where id = ${idFactura}`, (errDelete,rowsDelete,fieldsDelete)=>{
+   //                   if(!err){
+   //                      res.status(200).json(rowsDelete);
+   //                   }
+   //                   else{
+   //                      res.status(404).json(errDelete); // REVISAR VALIDACIÓN
+   //                   }
+   //                });
+   //             }
+   //             else{
+   //                res.status(404).json({Mensaje: `No se encontraron detalles de factura con el ID ${idFactura} `, Error: `${err}`});
+   //             }
+   //          })
+   //       break;
+   //       case '2':
+   //          mysql.mysqlConnection2.query(`select * from invoice where id = ${idFactura}`, (err,rows,fields) =>{
+   //             if(rows[0]!=null){
+   //                mysql.mysqlConnection1.query(`delete from invoice where id = ${idFactura}`, (errDelete,rowsDelete,fieldsDelete)=>{
+   //                   if(!err){
+   //                      res.status(200).json(rowsDelete);
+   //                   }
+   //                   else{
+   //                      res.status(404).json(errDelete); // REVISAR VALIDACIÓN
+   //                   }
+   //                });
+   //             }
+   //             else{
+   //                res.status(404).json({Mensaje: `No se encontraron detalles de factura con el ID ${idFactura} `, Error: `${err}`});
+   //             }
+   //          })
+   //       break;         
+   //       case '3':
+   //          mysql.mysqlConnection3.query(`select * from invoice where id = ${idFactura}`, (err,rows,fields) =>{
+   //             if(rows[0]!=null){
+   //                mysql.mysqlConnection1.query(`delete from invoice where id = ${idFactura}`, (errDelete,rowsDelete,fieldsDelete)=>{
+   //                   if(!err){
+   //                      res.status(200).json(rowsDelete);
+   //                   }
+   //                   else{
+   //                      res.status(404).json(errDelete); // REVISAR VALIDACIÓN
+   //                   }
+   //                });
+   //             }
+   //             else{
+   //                res.status(404).json({Mensaje: `No se encontraron detalles de factura con el ID ${idFactura} `, Error: `${err}`});
+   //             }
+   //          })
+   //       break;
+   //       default:
+   //          res.status(404).json({Mensaje: `No se encontró una sucursal con el ID ${idSucursal} `});
+   //    }
+   // }
 }
 
 function invoiceRecords(x){

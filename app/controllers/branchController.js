@@ -1,6 +1,6 @@
 let mysql = require('../../db/mysql');
 let branch = require('../models/branch');
-let arrayV = [];
+// let arrayV = []; 
 const {json} = require('body-parser');
 module.exports = {
     modify:(req,res)=>{
@@ -134,4 +134,4 @@ module.exports = {
 function branchRecords(x){
     let i = vector.length // vector[6]  -> vector.length = 6
     vector[i] = x;
- }
+} // se debe factorizar de tal forma que no sea necesario que como en listAll, el vector se crea y pasa desde afuera, la función debe ser independiente

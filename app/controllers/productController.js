@@ -4,85 +4,86 @@ const { json } = require('body-parser');
 let vector = [];
 
 module.exports = {
-   deleteFromSpecificBranch:(req,res)=>{///productos/:idProducto/sucursales/:idSucursal : eliminar producto existente.
-   let idProducto = req.params.idProducto;
-   let idSucursal = req.params.idSucursal;
-   switch(idSucursal){
-      case '1':
-         mysql.mysqlConnection1.query(`select name from producto where id = ${idProducto}`,(err,rows,fields) => {
-            if(rows[0]!=null){
-               mysql.mysqlConnection1.query(`delete from Product where id = ${idProducto}`, (errDelete,rowsDelete,fieldsDelete)=>{
-                  if(rowsDelete[0]!=null){
-                     res.status(200).json(rowsDelete);
-                  }
-                  else{
-                     res.status(404).json({Mensaje: `No se encontró un producto con el ID ${idProducto}`, Error: `${errDelete}`}); 
-                  }
-               });
-            }
-         })
-      break;
-      case '2':
-         mysql.mysqlConnection2.query(`select name from producto where id = ${idProducto}`,(err,rows,fields) => {
-            if(rows[0]!=null){
-               mysql.mysqlConnection1.query(`delete from Product where id = ${idProducto}`, (errDelete,rowsDelete,fieldsDelete)=>{
-                  if(rowsDelete[0]!=null){
-                     res.status(200).json(rowsDelete);
-                  }
-                  else{
-                     res.status(404).json({Mensaje: `No se encontró un producto con el ID ${idProducto}`, Error: `${errDelete}`}); 
-                  }
-               });
-            }
-         })
-      break;      
-      case '3':
-         mysql.mysqlConnection3.query(`select name from producto where id = ${idProducto}`,(err,rows,fields) => {
-            if(rows[0]!=null){
-               mysql.mysqlConnection1.query(`delete from Product where id = ${idProducto}`, (errDelete,rowsDelete,fieldsDelete)=>{
-                  if(rowsDelete[0]!=null){
-                     res.status(200).json(rowsDelete);
-                  }
-                  else{
-                     res.status(404).json({Mensaje: `No se encontró un producto con el ID ${idProducto}`, Error: `${errDelete}`}); 
-                  }
-               });
-            }
-         })
-      break;
-      default: 
-         res.status(404).json({Mensaje: `No se encontró un producto con el ID ${idProducto}`}); 
-   }
-   },
-   deleteGlobal: (req,res)=>{
-      let id = req.params.id;
-      mysql.mysqlConnection1.query(`delete from product where id = ${id}`,(err,rows,fields)=>{
-         if(rows[0]!=null){
-            productRecords(rows)
-         }
-         else {
-            res.json(err);
-         }
-   })
-   mysql.mysqlConnection2.query(`delete from product where id = ${id}`,(err,rows,fields)=>{
-         if(!err){
-            productRecords(rows)
-         }
-         else{
-            res.json(err);
-         }
-   }),
-   mysql.mysqlConnection3.query(`delete from product where id = ${id}`,(err,rows,fields)=>{
-         if(!err){
-            productRecords(rows)
-            res.json(vector)
-         }
-         else{
-            res.json(err);
-         }
-   })
-   vector = []
-   },
+   // deleteFromSpecificBranch:(req,res)=>{///productos/:idProducto/sucursales/:idSucursal : eliminar producto existente.
+   // ELIMINAR UN PRODUCTO DEBERÍA SER SOLO CUANDO YA NO HAYA EJEMPLARES DE DICHO PRODUCTO Y DEBERÍA SER DE MANERA LÓGICA, NO FÍSICA (en la BD)
+   // let idProducto = req.params.idProducto;
+   // let idSucursal = req.params.idSucursal;
+   // switch(idSucursal){
+   //    case '1':
+   //       mysql.mysqlConnection1.query(`select name from producto where id = ${idProducto}`,(err,rows,fields) => {
+   //          if(rows[0]!=null){
+   //             mysql.mysqlConnection1.query(`delete from Product where id = ${idProducto}`, (errDelete,rowsDelete,fieldsDelete)=>{
+   //                if(rowsDelete[0]!=null){
+   //                   res.status(200).json(rowsDelete);
+   //                }
+   //                else{
+   //                   res.status(404).json({Mensaje: `No se encontró un producto con el ID ${idProducto}`, Error: `${errDelete}`}); 
+   //                }
+   //             });
+   //          }
+   //       })
+   //    break;
+   //    case '2':
+   //       mysql.mysqlConnection2.query(`select name from producto where id = ${idProducto}`,(err,rows,fields) => {
+   //          if(rows[0]!=null){
+   //             mysql.mysqlConnection1.query(`delete from Product where id = ${idProducto}`, (errDelete,rowsDelete,fieldsDelete)=>{
+   //                if(rowsDelete[0]!=null){
+   //                   res.status(200).json(rowsDelete);
+   //                }
+   //                else{
+   //                   res.status(404).json({Mensaje: `No se encontró un producto con el ID ${idProducto}`, Error: `${errDelete}`}); 
+   //                }
+   //             });
+   //          }
+   //       })
+   //    break;      
+   //    case '3':
+   //       mysql.mysqlConnection3.query(`select name from producto where id = ${idProducto}`,(err,rows,fields) => {
+   //          if(rows[0]!=null){
+   //             mysql.mysqlConnection1.query(`delete from Product where id = ${idProducto}`, (errDelete,rowsDelete,fieldsDelete)=>{
+   //                if(rowsDelete[0]!=null){
+   //                   res.status(200).json(rowsDelete);
+   //                }
+   //                else{
+   //                   res.status(404).json({Mensaje: `No se encontró un producto con el ID ${idProducto}`, Error: `${errDelete}`}); 
+   //                }
+   //             });
+   //          }
+   //       })
+   //    break;
+   //    default: 
+   //       res.status(404).json({Mensaje: `No se encontró un producto con el ID ${idProducto}`}); 
+   // }
+   // },
+   // deleteGlobal: (req,res)=>{
+   //    let id = req.params.id;
+   //    mysql.mysqlConnection1.query(`delete from product where id = ${id}`,(err,rows,fields)=>{
+   //       if(rows[0]!=null){
+   //          productRecords(rows)
+   //       }
+   //       else {
+   //          res.json(err);
+   //       }
+   // })
+   // mysql.mysqlConnection2.query(`delete from product where id = ${id}`,(err,rows,fields)=>{
+   //       if(!err){
+   //          productRecords(rows)
+   //       }
+   //       else{
+   //          res.json(err);
+   //       }
+   // }),
+   // mysql.mysqlConnection3.query(`delete from product where id = ${id}`,(err,rows,fields)=>{
+   //       if(!err){
+   //          productRecords(rows)
+   //          res.json(vector)
+   //       }
+   //       else{
+   //          res.json(err);
+   //       }
+   // })
+   // vector = []
+   // },
    listAll:(req,res)=>{///productos/sucursales : todos los productos de todas las sucursales y todas las cantidades disponibles en cada una de las sucursales.
       mysql.mysqlConnection1.query('SELECT * FROM product',(err,rows,fields)=>{
          if(!err){
@@ -175,9 +176,9 @@ module.exports = {
          })
         vector = []
    },
-   create:(req,res)=>{//productos/idProducto : insertar producto nuevo.
+   create:(req,res)=>{
       mysql.mysqlConnection1.query('INSERT INTO product SET ?', req.body, (err,rows,fields)=>{
-         if(!err){r
+         if(!err){
             res.json(vector) //BORRAR DESPUES
          }
          else {
